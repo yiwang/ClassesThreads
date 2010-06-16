@@ -34,13 +34,14 @@ public class TestProgram {
 							}
 						}
 						
-						Thread.sleep(1L);
+						Thread.sleep(1000L);
 					}
 				} catch (InterruptedException iex) {}
 			}
 		};
 		
-		for(int i=0; i<1000; i++){
+		// spawn threads
+		for(int i=0; i<10; i++){
 			Thread thr = new Thread(r1);
 			thr.start();
 		}
