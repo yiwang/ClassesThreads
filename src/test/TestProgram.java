@@ -6,43 +6,39 @@ import test.exceptions.ValuesNotSetException;
 public class TestProgram {
 
 	public static void main(String[] args) {
-		Runnable r1 = new Runnable() {
+		Runnable r = new Runnable() {
 			public void run() {
 				try {
+					int a = (int) (Math.random()*100);
+					int b = (int) (Math.random()*100);
+					System.out.println("Start calculating "+a+" + "+b);
+					Calculator calculator = Calculator.getInstance();
+					AddCalculation addCalc = new AddCalculation();
+					addCalc.setValues(a, b);
+					try {							
+						calculator.processCalculation(addCalc);
+					} catch (ValuesNotSetException e) {
+						e.printStackTrace();
+						System.exit(-1);
+					}
+					
+					// retrieve result
 					while (true) {
-						int a = (int) (Math.random()*100);
-						int b = (int) (Math.random()*100);
-						System.out.println("Start calculating "+a+" + "+b);
-						Calculator calculator = Calculator.getInstance();
-						AddCalculation addCalc = new AddCalculation();
-						addCalc.setValues(a, b);
-						try {							
-							calculator.processCalculation(addCalc);
-						} catch (ValuesNotSetException e) {
+						try {
+							System.out.println(a + " + " + b + " = "+ addCalc.getResult());
+							break;
+						} catch (CalcNotCompleteException e) {
 							e.printStackTrace();
 							System.exit(-1);
 						}
-						
-						// retrieve result
-						while (true) {
-							try {
-								System.out.println(a + " + " + b + " = "+ addCalc.getResult());
-								break;
-							} catch (CalcNotCompleteException e) {
-								e.printStackTrace();
-								System.exit(-1);
-							}
-						}
-						
-						Thread.sleep(1000L);
 					}
 				} catch (InterruptedException iex) {}
 			}
 		};
 		
 		// spawn threads
-		for(int i=0; i<10; i++){
-			Thread thr = new Thread(r1);
+		for(int i=0; i<100; i++){
+			Thread thr = new Thread(r);
 			thr.start();
 		}
 	}
