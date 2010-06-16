@@ -8,6 +8,7 @@ public class TestProgram {
 			    try {
 			      while (true) {
 			        System.out.println("Hello, world!");
+			        Calculator.getInstance();
 			        Thread.sleep(1000L);
 			      }
 			    } catch (InterruptedException iex) {}

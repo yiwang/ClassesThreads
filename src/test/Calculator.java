@@ -11,6 +11,15 @@ public class Calculator {
 
     }
 
-   
+    private Calculator() {
+    	System.out.println("Init Calculator Singleton");
+    }
+    
+    private static class SingletonHolder {
+    	private static final Calculator INSTANCE = new Calculator();
+    }
 
+    public static Calculator getInstance(){
+    	return SingletonHolder.INSTANCE;
+    }
 }
