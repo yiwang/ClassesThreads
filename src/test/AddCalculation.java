@@ -53,6 +53,9 @@ public class AddCalculation implements ICalculation {
 		valA = a;
 		
 		valB = b;
+		
+		// after valsSet
+		valsSet = true;
 
     }
 
