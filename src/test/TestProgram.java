@@ -15,29 +15,26 @@ public class TestProgram {
 					Calculator calculator = Calculator.getInstance();
 					AddCalculation addCalc = new AddCalculation();
 					addCalc.setValues(a, b);
-					try {							
-						calculator.processCalculation(addCalc);
-					} catch (ValuesNotSetException e) {
-						e.printStackTrace();
-						System.exit(-1);
-					}
+					calculator.processCalculation(addCalc);
 					
+					Thread.sleep(10L);
 					// retrieve result
-					while (true) {
-						try {
-							System.out.println(a + " + " + b + " = "+ addCalc.getResult());
-							break;
-						} catch (CalcNotCompleteException e) {
-							e.printStackTrace();
-							System.exit(-1);
-						}
-					}
-				} catch (InterruptedException iex) {}
+					System.out.println(a + " + " + b + " = "+ addCalc.getResult());
+
+				} catch (InterruptedException iex) {} catch (ValuesNotSetException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.exit(-1);
+				} catch (CalcNotCompleteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.exit(-2);
+				}
 			}
 		};
 		
 		// spawn threads
-		for(int i=0; i<100; i++){
+		for(int i=0; i<100000; i++){
 			Thread thr = new Thread(r);
 			thr.start();
 		}
